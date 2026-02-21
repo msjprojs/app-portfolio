@@ -7,9 +7,9 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20, blank=True)
     email = models.EmailField()
     location = models.CharField(max_length=20, blank=True)
-    github = models.URlField(blank=True)
-    linkedin = models.URlField(blank=True)
-    twitter = models.URlField(blank=True)
+    github = models.URLField(blank=True)
+    linkedin = models.URLField(blank=True)
+    twitter = models.URLField(blank=True)
     resume = models.FileField(upload_to='resumes/',blank=True, null=True)
     profile_image = models.ImageField(upload_to='profiles /',blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,17 +20,17 @@ class Profile(models.Model):
         
 class Skill(models.Model):
     CATEGORY_CHOICES = [
-        ('Frontend', 'Frontend')
-        ('Backend', 'Backend')
-        ('Database', 'Database')
-        ('DevOps', 'DevOps')
-        ('Tools', 'Tools')
+        ('Frontend', 'Frontend'),
+        ('Backend', 'Backend'),
+        ('Database', 'Database'),
+        ('DevOps', 'DevOps'),
+        ('Tools', 'Tools'),
         ('Other', 'Other')
     ]
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     proficiency = models.IntegerField(default=50)
-    icon = models.CharField(max_length=50, blanck=True)
+    icon = models.CharField(max_length=50, blank=True)
     order = models.IntegerField(default=0)
     
     def __str__(self):
@@ -44,8 +44,8 @@ class Project(models.Model):
     description = models.TextField()
     technologies = models.CharField(max_length=500)
     image = models.ImageField(upload_to='projects/',blank=True, null=True)
-    github_url = models.URlField(blank=True)
-    live_url = models.URlField(blank=True)
+    github_url = models.URLField(blank=True)
+    live_url = models.URLField(blank=True)
     featured = models.BooleanField(blank=False)
     order = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
