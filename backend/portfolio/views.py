@@ -41,3 +41,23 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
         featured_projects = self.queryset.filter(featured=True)
         serializer = self.get_serializer(featured_projects, many=True)
         return Response(serializer.data)
+
+class ExperienceViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+class ContactViewSet(viewsets.ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    http_method_names = ['posts']
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {'message': 'Mensagem enviada com sucesso!'},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
